@@ -1,8 +1,8 @@
 @echo off
 setlocal enabledelayedexpansion
-:: This file should be run after installing the qt package into any
-:: environment.  It makes it so Qt knows where to look for includes and
-:: libs.  This script is copied in bld.bat to the post-link script for qt,
+:: This file should be run after installing the qt package into any environment.
+:: It makes it so Qt knows where to look for includes and libs.
+:: This script is copied in bld.bat to the post-link script for qt,
 :: which means it is run after the Qt package gets linked, and sets up
 :: the correct path for whatever Conda env you install Qt to.
 pushd "%~dp0\..\"
