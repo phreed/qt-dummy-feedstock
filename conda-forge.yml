@@ -1,11 +1,16 @@
-conda_forge_output_validation: true
-azure:
-  settings_win:
-    variables:
-      CONDA_BLD_PATH: C:\bld\
-# qt 5.12 claims to not support ppc64le. It likely needs patching
-# to get it through the build process
-provider: {linux_aarch64: default}
+
 github:
-  branch_name: main
+  user_or_org: phreed
+  branch_name: v5.2.1
   tooling_branch_name: main
+
+channels:
+  targets:
+    - [mesomorph,main]
+provider:
+  osx: github_actions
+  linux: github_actions
+  win: github_actions
+github_actions:
+  upload_packages: True
+upload_on_branch: v5.2.1
