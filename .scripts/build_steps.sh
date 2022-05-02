@@ -39,14 +39,6 @@ setup_conda_rc "${FEEDSTOCK_ROOT}" "${RECIPE_ROOT}" "${CONFIG_FILE}"
 
 source run_conda_forge_build_setup
 
-
-# Install the yum requirements defined canonically in the
-# "recipe/yum_requirements.txt" file. After updating that file,
-# run "conda smithy rerender" and this line will be updated
-# automatically.
-/usr/bin/sudo -n yum install -y alsa-lib libXScrnSaver libXtst libXi libXcursor libXcomposite mesa-libGL mesa-dri-drivers libselinux libXdamage libXxf86vm libXext libX11-devel libXt-devel libXext-devel chrpath libXrender-devel gtk2-devel dbus-devel libSM-devel libICE-devel xorg-x11-server-Xvfb ruby
-
-
 # make the build number clobber
 make_build_number "${FEEDSTOCK_ROOT}" "${RECIPE_ROOT}" "${CONFIG_FILE}"
 
