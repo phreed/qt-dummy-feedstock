@@ -1,31 +1,20 @@
 # This feedstock wraps existing binary distributions.
+{% set name = "qt-dummy" %}
 {% set version = "5.2.1" %}
 
 package:
-  name: qt
-  version: {{ version }}
-
-source:
-  - url: https://download.qt.io/new_archive/qt/{{ version.rpartition('.')[0] }}/{{ version }}/qt-opensource-linux-x64-{{ version }}.run  # [linux]
-    md5: 323522e9d1e2bfc6759fede46c9a14ef  # [linux]
-  - url: https://download.qt.io/new_archive/qt/{{ version.rpartition('.')[0] }}/{{ version }}/qt-opensource-windows-x86-msvc2010-{{ version }}.exe  # [win]
-    md5: 1107faa3039ec24b07a4aae77d67084e  # [win]
-  - url: https://download.qt.io/new_archive/qt/{{ version.rpartition('.')[0] }}/{{ version }}/qt-opensource-mac-x64-clang-{{ version }}.dmg  # [osx]
-    md5: be0e1bebe722a567a72e6eeda6c03325  # [osx]
+  name: '{{ name|lower }}'
+  version: '{{ version }}'
 
 build:
+  noarch: generic
   number: 0
 
 requirements:
   build:
+    - numpy {{ numpy }}
+  host: []
   run: []
-#    - openssl                            # [not osx]
-#    - {{ pin_compatible("nss") }}        # [unix]
-#    - {{ pin_compatible("nspr") }}       # [unix]
-#    - libxcb                             # [linux]
-#    - {{ pin_compatible("libclang") }}
-#  run_constrained:                                            # [osx]
-#    - __osx >={{ MACOSX_DEPLOYMENT_TARGET|default("10.9") }}  # [osx]
 
 test:
   requires:
@@ -39,10 +28,9 @@ test:
 #    - test/qtwebengine.pro
   commands:
     - if not exist %LIBRARY_BIN%\\Qt5WebEngine.dll exit 1                  # [win]
-    - test -f $PREFIX/lib/libQt5WebEngine${SHLIB_EXT}                      # [unix]
-    # sql plugin
-    - test -f $PREFIX/plugins/sqldrivers/libqsqlite${SHLIB_EXT}            # [unix]
     - if not exist %LIBRARY_PREFIX%\plugins\sqldrivers\qsqlite.dll exit 1  # [win]
+    - test -f $PREFIX/lib/libQt5WebEngine${SHLIB_EXT}                      # [unix]
+    - test -f $PREFIX/plugins/sqldrivers/libqsqlite${SHLIB_EXT}            # [unix]
 
 about:
   home: http://qt-project.org
@@ -52,9 +40,15 @@ about:
   description: |
     Qt helps you create connected devices, UIs & applications that run
     anywhere on any device, on any operating system at any time.
+    This module provides a dummy installer for Qt.
+    It does not install any Qt package.
+    It configures the specified Conda environment to use the installed Qt.
+    It expects the appropriate Qt to have been previously acquired.
+    It may be acquired and installed from 
+    https://
   doc_url: https://www.qt.io/blog/2014/02/05/qt-5-2-1-released
   dev_url: https://github.com/qtproject
 
 extra:
   recipe-maintainers:
-    - phreed
+    - 'phreed'

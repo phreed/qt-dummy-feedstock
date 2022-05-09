@@ -1,22 +1,48 @@
+
 @echo off
-setlocal enabledelayedexpansion
-:: This file should be run after installing the qt package into any environment.
-:: It makes it so Qt knows where to look for includes and libs.
-:: This script is copied in bld.bat to the post-link script for qt,
-:: which means it is run after the Qt package gets linked, and sets up
-:: the correct path for whatever Conda env you install Qt to.
-pushd "%~dp0\..\"
-set "FORWARD_SLASHED_PREFIX=%CD:\=/%"
-if not exist "%CD%\Library" mkdir "%CD%\Library"
-if not exist "%CD%\Library\bin" mkdir "%CD%\Library\bin"
-echo [Paths] > "%CD%\Library\bin\qt.conf"
-echo Prefix = %FORWARD_SLASHED_PREFIX%/Library>> "%CD%\Library\bin\qt.conf"
-echo Binaries = %FORWARD_SLASHED_PREFIX%/Library/bin>> "%CD%\Library\bin\qt.conf"
-echo Libraries = %FORWARD_SLASHED_PREFIX%/Library/lib>> "%CD%\Library\bin\qt.conf"
-echo Headers = %FORWARD_SLASHED_PREFIX%/Library/include/qt>> "%CD%\Library\bin\qt.conf"
-:: Qt seems to not bother setting QMAKE_SPEC nor QMAKE_XSPEC these days on Windows.
-echo TargetSpec = win32-msvc>> "%CD%\Library\bin\qt.conf"
-echo HostSpec = win32-msvc>> "%CD%\Library\bin\qt.conf"
-:: Some things go looking in the prefix root (pyqt, for example)
-copy "%CD%\Library\bin\qt.conf" "%CD%\qt.conf"
-@echo on
+
+SetLocal EnableExtensions EnableDelayedExpansion
+
+rem https://ss64.com/nt/syntax-args.html
+set "MSG_FILE=%CONDA_PREFIX%\.messages.txt"
+set "MY_SELF=%~f0
+
+set "PKG_BIN=%CONDA_PREFIX%\bin"
+set "PKG_UUID=%PKG_NAME%-%PKG_VERSION%_%PKG_BUILDNUM%"
+
+set "CONDA_MESO=%CONDA_PREFIX%\conda-meso\%PKG_UUID%"
+if not exist "%CONDA_MESO%" mkdir "%CONDA_MESO%"
+
+(
+    echo Starting %MY_SELF%
+    echo Installing in %CONDA_PREFIX%
+    echo    CONDA_ROOT   : %CONDA_ROOT%
+    echo    CONDA_QUIET  : %CONDA_QUIET%
+    echo    CONDA_PREFIX : %CONDA_PREFIX%
+    echo    PKG_NAME     : %PKG_NAME%
+    echo    PKG_VERSION  : %PKG_VERSION%
+    echo    PKG_BUILDNUM : %PKG_BUILDNUM%
+
+    echo    CONDA_JSON   : %CONDA_JSON%
+    echo    CONDA_EXE    : %CONDA_EXE%
+    echo    CONDA_EXES   : %CONDA_EXES%
+
+    echo    CONDA_PREFIX          : %CONDA_PREFIX%
+    echo    CONDA_PREFIX_1        : %CONDA_PREFIX_1%
+
+    echo    CONDA_DEFAULT_ENV     : %CONDA_DEFAULT_ENV%
+    echo    CONDA_PROMPT_MODIFIER : %CONDA_PROMPT_MODIFIER%
+    echo    CONDA_PYTHON_EXE      : %CONDA_PYTHON_EXE%
+    echo    CONDA_SHLVL           : %CONDA_SHLVL%
+
+    echo    CONDA_ALLOW_SOFTLINKS : %CONDA_ALLOW_SOFTLINKS%
+    echo    CONDA_PATH_CONFLICT   : %CONDA_PATH_CONFLICT%
+
+    echo    PKG_UUID     : %PKG_UUID%
+    echo    CONDA_MESO   : %CONDA_MESO%
+    echo    PKG_BIN      : %PKG_BIN%
+    echo    CONDA_QUIET  : %CONDA_QUIET%
+    echo    CONDA_JSON   : %CONDA_JSON%
+) > "%MSG_FILE%"
+
+exit /B 0

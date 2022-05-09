@@ -1,8 +1,8 @@
 
 github:
   user_or_org: phreed
-  branch_name: v5.2.1
-  tooling_branch_name: main
+#  branch_name: v5.2.1
+#  tooling_branch_name: main
 
 channels:
   targets:
@@ -13,4 +13,5 @@ provider:
   win: github_actions
 github_actions:
   upload_packages: True
-upload_on_branch: v5.2.1
+upload_on_branch: main
+

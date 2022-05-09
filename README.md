@@ -1,11 +1,11 @@
-About qt
+About qt-dummy
 ========
 
 Home: http://qt-project.org
 
 Package license: LGPL-3.0-only
 
-Feedstock license: [BSD-3-Clause](https://github.com/phreed/qt-feedstock/blob/v5.2.1/LICENSE.txt)
+Feedstock license: [BSD-3-Clause](https://github.com/phreed/qt-dummy-feedstock/blob/v5.2.1/LICENSE.txt)
 
 Summary: Qt is a cross-platform application and UI framework.
 
@@ -31,67 +31,78 @@ Current release info
 | --- | --- | --- | --- |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-qt-green.svg)](https://anaconda.org/mesomorph/qt) | [![Conda Downloads](https://img.shields.io/conda/dn/mesomorph/qt.svg)](https://anaconda.org/mesomorph/qt) | [![Conda Version](https://img.shields.io/conda/vn/mesomorph/qt.svg)](https://anaconda.org/mesomorph/qt) | [![Conda Platforms](https://img.shields.io/conda/pn/mesomorph/qt.svg)](https://anaconda.org/mesomorph/qt) |
 
-Installing qt
+Activating qt-dummy
+===================
+
+When `qt-dummy` is activated it searches the system for an installed copy of Qt.
+It expects to find Qt installed in one of several typical places.
+
+* Windows : 
+* Linux : 
+
+The Qt install may be found at ...
+
+Installing qt-dummy
 =============
 
-Installing `qt` from the `mesomorph` channel can be achieved by adding `mesomorph` to your channels with:
+Installing `qt-dummy` from the `mesomorph` channel can be achieved by adding `mesomorph` to your channels with:
 
 ```
 conda config --add channels mesomorph
 conda config --set channel_priority strict
 ```
 
-Once the `mesomorph` channel has been enabled, `qt` can be installed with `conda`:
+Once the `mesomorph` channel has been enabled, `qt-dummy` can be installed with `conda`:
 
 ```
-conda install qt
-```
-
-or with `mamba`:
-
-```
-mamba install qt
-```
-
-It is possible to list all of the versions of `qt` available on your platform with `conda`:
-
-```
-conda search qt --channel mesomorph
+conda install qt-dummy
 ```
 
 or with `mamba`:
 
 ```
-mamba search qt --channel mesomorph
+mamba install qt-dummy
+```
+
+It is possible to list all of the versions of `qt-dummy` available on your platform with `conda`:
+
+```
+conda search qt-dummy --channel mesomorph
+```
+
+or with `mamba`:
+
+```
+mamba search qt-dummy --channel mesomorph
 ```
 
 Alternatively, `mamba repoquery` may provide more information:
 
 ```
 # Search all versions available on your platform:
-mamba repoquery search qt --channel mesomorph
+mamba repoquery search qt-dummy --channel mesomorph
 
-# List packages depending on `qt`:
-mamba repoquery whoneeds qt --channel mesomorph
+# List packages depending on `qt-dummy`:
+mamba repoquery whoneeds qt-dummy --channel mesomorph
 
-# List dependencies of `qt`:
-mamba repoquery depends qt --channel mesomorph
+# List dependencies of `qt-dummy`:
+mamba repoquery depends qt-dummy --channel mesomorph
 ```
 
 
 
 
-Updating qt-feedstock
+Updating qt-dummy-feedstock
 =====================
 
-If you would like to improve the qt recipe or build a new
+If you would like to improve the qt-dummy recipe or build a new
 package version, please fork this repository and submit a PR. Upon submission,
 your changes will be run on the appropriate platforms to give the reviewer an
 opportunity to confirm that the changes result in a successful build. Once
 merged, the recipe will be re-built and uploaded automatically to the
 `mesomorph` channel, whereupon the built conda packages will be available for
 everybody to install and use from the `mesomorph` channel.
-Note that all branches in the phreed/qt-feedstock are
+Note that all branches in the phreed/qt-dummy-feedstock are
 immediately built and any created packages are uploaded, so PRs should be based
 on branches in forks and branches in the main repository should only be used to
 build distinct package versions.
