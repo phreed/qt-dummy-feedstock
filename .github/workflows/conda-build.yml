@@ -17,12 +17,6 @@ jobs:
             UPLOAD_PACKAGES: True
             DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
             os: ubuntu
-          - CONFIG: win_64_
-            UPLOAD_PACKAGES: True
-            os: windows
-          - CONFIG: osx_64_
-            UPLOAD_PACKAGES: True
-            os: macos
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
@@ -34,10 +28,8 @@ jobs:
         UPLOAD_PACKAGES: ${{ matrix.UPLOAD_PACKAGES }}
         DOCKER_IMAGE: ${{ matrix.DOCKER_IMAGE }}
         CI: github_actions
-        UPLOAD_ON_BRANCH: v5.2.1
+        UPLOAD_ON_BRANCH: main
         BINSTAR_TOKEN: ${{ secrets.BINSTAR_TOKEN }}
-        FEEDSTOCK_TOKEN: ${{ secrets.FEEDSTOCK_TOKEN }}
-        STAGING_BINSTAR_TOKEN: ${{ secrets.STAGING_BINSTAR_TOKEN }}
       shell: bash
       run: |
         echo "::group::Configure binfmt_misc"
@@ -58,10 +50,8 @@ jobs:
         CONFIG: ${{ matrix.CONFIG }}
         UPLOAD_PACKAGES: ${{ matrix.UPLOAD_PACKAGES }}
         CI: github_actions
-        UPLOAD_ON_BRANCH: v5.2.1
+        UPLOAD_ON_BRANCH: main
         BINSTAR_TOKEN: ${{ secrets.BINSTAR_TOKEN }}
-        FEEDSTOCK_TOKEN: ${{ secrets.FEEDSTOCK_TOKEN }}
-        STAGING_BINSTAR_TOKEN: ${{ secrets.STAGING_BINSTAR_TOKEN }}
       shell: bash
       run: |
         export FEEDSTOCK_NAME="$(basename $GITHUB_REPOSITORY)"
@@ -97,11 +87,9 @@ jobs:
         ) else (
           set "IS_PR_BUILD=False"
         )
-        validate_recipe_outputs "%FEEDSTOCK_NAME%"
-        if errorlevel 1 exit 1
         if /i "%UPLOAD_PACKAGES%" == "true" (
           if /i "%IS_PR_BUILD%" == "false" (
-            upload_package --validate --feedstock-name="%FEEDSTOCK_NAME%" .\ ".\recipe" .ci_support\%CONFIG%.yaml
+            upload_package  .\ ".\recipe" .ci_support\%CONFIG%.yaml
           )
         )
       env:
@@ -109,8 +97,6 @@ jobs:
         CONFIG: ${{ matrix.CONFIG }}
         CI: github_actions
         UPLOAD_PACKAGES: ${{ matrix.UPLOAD_PACKAGES }}
-        UPLOAD_ON_BRANCH: v5.2.1
+        UPLOAD_ON_BRANCH: main
         BINSTAR_TOKEN: ${{ secrets.BINSTAR_TOKEN }}
-        FEEDSTOCK_TOKEN: ${{ secrets.FEEDSTOCK_TOKEN }}
-        STAGING_BINSTAR_TOKEN: ${{ secrets.STAGING_BINSTAR_TOKEN }}
       if: matrix.os == 'windows'

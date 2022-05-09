@@ -1,11 +1,11 @@
 About qt-dummy
-========
+==============
 
 Home: http://qt-project.org
 
 Package license: LGPL-3.0-only
 
-Feedstock license: [BSD-3-Clause](https://github.com/phreed/qt-dummy-feedstock/blob/v5.2.1/LICENSE.txt)
+Feedstock license: [BSD-3-Clause](https://github.com/phreed/qt-dummy-feedstock/blob/master/LICENSE.txt)
 
 Summary: Qt is a cross-platform application and UI framework.
 
@@ -15,13 +15,24 @@ Documentation: https://www.qt.io/blog/2014/02/05/qt-5-2-1-released
 
 Qt helps you create connected devices, UIs & applications that run
 anywhere on any device, on any operating system at any time.
+This module provides a dummy installer for Qt.
+It does not install any Qt package.
+It configures the specified Conda environment to use the installed Qt.
+It expects the appropriate Qt to have been previously acquired.
+It may be acquired and installed from
+https://
 
 
 Current build status
 ====================
 
 
-<table>
+<table><tr>
+    <td>All platforms:</td>
+    <td>
+      <img src="https://img.shields.io/badge/noarch-disabled-lightgrey.svg" alt="noarch disabled">
+    </td>
+  </tr>
 </table>
 
 Current release info
@@ -29,21 +40,10 @@ Current release info
 
 | Name | Downloads | Version | Platforms |
 | --- | --- | --- | --- |
-| [![Conda Recipe](https://img.shields.io/badge/recipe-qt-green.svg)](https://anaconda.org/mesomorph/qt) | [![Conda Downloads](https://img.shields.io/conda/dn/mesomorph/qt.svg)](https://anaconda.org/mesomorph/qt) | [![Conda Version](https://img.shields.io/conda/vn/mesomorph/qt.svg)](https://anaconda.org/mesomorph/qt) | [![Conda Platforms](https://img.shields.io/conda/pn/mesomorph/qt.svg)](https://anaconda.org/mesomorph/qt) |
-
-Activating qt-dummy
-===================
-
-When `qt-dummy` is activated it searches the system for an installed copy of Qt.
-It expects to find Qt installed in one of several typical places.
-
-* Windows : 
-* Linux : 
-
-The Qt install may be found at ...
+| [![Conda Recipe](https://img.shields.io/badge/recipe-qt--dummy-green.svg)](https://anaconda.org/mesomorph/qt-dummy) | [![Conda Downloads](https://img.shields.io/conda/dn/mesomorph/qt-dummy.svg)](https://anaconda.org/mesomorph/qt-dummy) | [![Conda Version](https://img.shields.io/conda/vn/mesomorph/qt-dummy.svg)](https://anaconda.org/mesomorph/qt-dummy) | [![Conda Platforms](https://img.shields.io/conda/pn/mesomorph/qt-dummy.svg)](https://anaconda.org/mesomorph/qt-dummy) |
 
 Installing qt-dummy
-=============
+===================
 
 Installing `qt-dummy` from the `mesomorph` channel can be achieved by adding `mesomorph` to your channels with:
 
@@ -93,7 +93,7 @@ mamba repoquery depends qt-dummy --channel mesomorph
 
 
 Updating qt-dummy-feedstock
-=====================
+===========================
 
 If you would like to improve the qt-dummy recipe or build a new
 package version, please fork this repository and submit a PR. Upon submission,
