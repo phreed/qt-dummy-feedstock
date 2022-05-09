@@ -33,7 +33,7 @@ test:
     - test -f $PREFIX/plugins/sqldrivers/libqsqlite${SHLIB_EXT}            # [unix]
 
 about:
-  home: http://qt-project.org
+  home: https://www.qt.io/
   license: LGPL-3.0-only
   license_file: LICENSE.LGPLv3
   summary: 'Qt is a cross-platform application and UI framework.'
@@ -44,8 +44,6 @@ about:
     It does not install any Qt package.
     It configures the specified Conda environment to use the installed Qt.
     It expects the appropriate Qt to have been previously acquired.
-    It may be acquired and installed from 
-    https://
   doc_url: https://www.qt.io/blog/2014/02/05/qt-5-2-1-released
   dev_url: https://github.com/qtproject
 
