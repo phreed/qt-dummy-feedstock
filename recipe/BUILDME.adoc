@@ -37,12 +37,12 @@ mamba smithy register-github --user phreed .
 
 [source,cmd]
 ----
-mamba smithy register-ci --feedstock_directory . --user phreed --without-drone --without-azure --without-appveyor
+mamba smithy register-ci --feedstock_directory . --user phreed --without-travis --without-circle --without-drone --without-azure --without-appveyor
 ----
 
 [source,cmd]
 ----
-mamba smithy update-anaconda-token --feedstock_directory . --user phreed --without-azure --without-travis --without-circle --without-drone --without-appveyor
+mamba smithy update-anaconda-token --feedstock_directory . --user phreed --without-travis --without-circle --without-drone --without-azure --without-appveyor
 ----
 
 Now build the scripts needed by the specified tooling.
