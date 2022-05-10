@@ -1,17 +1,34 @@
 
-github:
-  user_or_org: phreed
-#  branch_name: v5.2.1
-#  tooling_branch_name: main
+build_platform:
+  linux_64: linux_64
 
 channels:
+  sources:
+    - conda-forge
+    - defaults
   targets:
     - [mesomorph,main]
+
+noarch_platforms: linux_64
+
+github:
+  user_or_org: phreed
+  repo_name: qt-dummy-feedstock
+  branch_name: v5.2.1
+  tooling_branch_name: v5.2.1
+
 provider:
   osx: github_actions
   linux: github_actions
   win: github_actions
+
+recipe_dir: recipe
+
 github_actions:
   upload_packages: True
+
 upload_on_branch: v5.2.1
 
+skip_render:
+  - .gitignore
+  - LICENSE.txt

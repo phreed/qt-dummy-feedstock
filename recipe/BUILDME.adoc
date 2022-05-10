@@ -23,7 +23,7 @@ mamba smithy init --feedstock-directory ../qt-dummy-feedstock2 ./recipe
 
 ## GitHub Registration
 
-Configure the upload channels.
+link:https://conda-forge.org/docs/maintainer/conda_forge_yml.html[Configure the upload channels].
 [source,yaml]
 ----
 include::../conda-forge.yml[]
@@ -38,17 +38,31 @@ You can generate a personal access token at https://github.com/settings/tokens.
 mamba smithy register-github --user phreed .
 ----
 
+This creates a new github repository (if it does not already exist), but it does not populate it.
+
+
 ## CI Registration
 
+If CI is done with github-actions then no CI registration is required.
+CI is configured via `../
 [source,cmd]
 ----
 mamba smithy register-ci --feedstock_directory . --user phreed --without-travis --without-circle --without-drone --without-azure --without-appveyor
 ----
 
+## Anaconda Token
+
+This mostly just
+link:https://github.com/phreed/qt-dummy-feedstock/settings/secrets/actions[adds the BINSTAR_TOKEN]
+to the github project.
+The value of the BINSTAR_TOKEN is taken from `~/.conda-smithy/anaconda.token`.
+
 [source,cmd]
 ----
 mamba smithy update-anaconda-token --feedstock_directory . --user phreed --without-travis --without-circle --without-drone --without-azure --without-appveyor
 ----
+
+## Generate the Scripts
 
 Now build the scripts needed by the specified tooling.
 
@@ -56,12 +70,14 @@ Now build the scripts needed by the specified tooling.
 ----
 mamba smithy regenerate --feedstock_directory .
 ----
+
+## Commit and Push to GitHub
+
 Finally, push the configured feedstock to github for building and deployment.
 
 [source,cmd]
 ----
-cd .\qt-dummy-feedstock
-git commit -m ""
+git commit -m "MNT: Regenerate"
 git push upstream main
 ----
 
