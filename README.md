@@ -1,7 +1,7 @@
 About qt-dummy
 ==============
 
-Home: http://qt-project.org
+Home: https://www.qt.io/
 
 Package license: LGPL-3.0-only
 
@@ -19,8 +19,6 @@ This module provides a dummy installer for Qt.
 It does not install any Qt package.
 It configures the specified Conda environment to use the installed Qt.
 It expects the appropriate Qt to have been previously acquired.
-It may be acquired and installed from
-https://
 
 
 Current build status
