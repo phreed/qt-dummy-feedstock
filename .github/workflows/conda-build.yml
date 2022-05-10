@@ -17,6 +17,12 @@ jobs:
             UPLOAD_PACKAGES: True
             DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
             os: ubuntu
+          - CONFIG: win_64_
+            UPLOAD_PACKAGES: True
+            os: windows
+          - CONFIG: osx_64_
+            UPLOAD_PACKAGES: True
+            os: macos
     steps:
     - name: Checkout code
       uses: actions/checkout@v2

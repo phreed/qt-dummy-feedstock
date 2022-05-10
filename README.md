@@ -25,12 +25,7 @@ Current build status
 ====================
 
 
-<table><tr>
-    <td>All platforms:</td>
-    <td>
-      <img src="https://img.shields.io/badge/noarch-disabled-lightgrey.svg" alt="noarch disabled">
-    </td>
-  </tr>
+<table>
 </table>
 
 Current release info

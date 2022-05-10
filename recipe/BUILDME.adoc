@@ -81,4 +81,28 @@ git commit -m "MNT: Regenerate"
 git push upstream main
 ----
 
-That seems to do the trick.
+## Examine the Build
+
+link:https://github.com/phreed/qt-dummy-feedstock/actions[Check the Github action status.]
+Click through the links to the workflow log.
+Open the "Build on Linux" -> "Uploading Packages" to make sure it got uploaded to Anaconda.
+link:https://anaconda.org/mesomorph/repo[Verify that the Anaconda mesomorph channel is correct.]
+
+## Install the Package
+
+see link:../README.md[the installation instructions].
+
+## Subsequent Changes
+
+In general when something is changed the `recipe/meta.yaml` needs to either have its
+version changed or its `build` : `number` incremented.
+In addition, the scripts need to be regenerated.
+
+[source,cmd]
+----
+mamba smithy regenerate --feedstock_directory .
+----
+Of course, any change will need to be committed and pushed to github.
+
+
+
