@@ -9,7 +9,6 @@ if exist "%UNLINK_SCRIPT%" do (
   call "%UNLINK_SCRIPT%"
   del "%UNLINK_SCRIPT%"
 )
-if exist "%CONDA_PREFIX%\conda-meso\%PKG_UUID%\discovery.bat" rm "%CONDA_PREFIX%\conda-meso\%PKG_UUID%\discovery.bat"
-if exist "%CONDA_PREFIX%\conda-meso\%PKG_UUID%\deactivate-aux.bat" rm "%CONDA_PREFIX%\conda-meso\%PKG_UUID%\deactivate-aux.bat"
+if exist "%CONDA_PREFIX%\conda-meso\%PKG_UUID%\deactivate.bat" rm "%CONDA_PREFIX%\conda-meso\%PKG_UUID%\deactivate.bat"
 
 del /S /Q "%CONDA_PREFIX%\conda-meso\%PKG_UUID%"

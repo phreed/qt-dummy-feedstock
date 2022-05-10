@@ -1,22 +1,27 @@
-# The Process for Creating a Separate Conda-Smithy Feedstock
+# Build `qt-dummy`
+
+The process for creating the conda-smithy `qt-dummy-feedstock`.
 
 Starting from link:https://github.com/phreed/my-conda-pkg-feedstock[the sample].
-There are other tutorials out there but `conda-smithy` is moving quickly.
+There are several tutorials and `conda-smithy` is moving quickly.
 
-Note that this feedstock repository was constructed from the `./recipes/qt-dummy` recipe directory.
-It was populated with an assortment of files including the file `recipe/meta.yaml`.
+The main file is `recipe/meta.yaml`.
 [source,yaml]
 ----
 include::meta.yaml[]
 ----
 
-This is all that is needed to create this git repository `qt-dummy-feedstock`.
-I do not want to contaminate the original repository so the init is performed
-from the directory containing the original `conda-forge` source.
+## Create Repository
+
+A fresh git repository `qt-dummy-feedstock` can be generated.
+The only required content is `recipe/meta.yaml`.
+
 [source,cmd]
 ----
-mamba smithy init .\staged-recipes\recipes\qt-dummy
+mamba smithy init --feedstock-directory ../qt-dummy-feedstock2 ./recipe
 ----
+
+## GitHub Registration
 
 Configure the upload channels.
 [source,yaml]
@@ -25,15 +30,15 @@ include::../conda-forge.yml[]
 ----
 
 The feedstock needs to be registered with github.
-The tokens should already be present in the `~/.conda-smithy` folder.
-
-The following commands are run from the `./qt-dummy-feedstock` directory,
-i.e. the project root.
+The github personal access token must be present in the `~/.conda-smithy/github.token` file.
+You can generate a personal access token at https://github.com/settings/tokens.
 
 [source,cmd]
 ----
 mamba smithy register-github --user phreed .
 ----
+
+## CI Registration
 
 [source,cmd]
 ----
