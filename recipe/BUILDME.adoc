@@ -1,9 +1,18 @@
-# Build `qt-dummy`
+= Build `qt-dummy`
 
-The process for creating the conda-smithy `qt-dummy-feedstock`.
 
-Starting from link:https://github.com/phreed/my-conda-pkg-feedstock[the sample].
-There are several tutorials and `conda-smithy` is moving quickly.
+
+
+== Building During Development
+
+Assuming that the recipe path is `D:\ip\qt-dummy-feedstock\`
+
+Note:: From here on out I will assume the recipe path is the current working directory.
+
+[source,powershell]
+----
+conda mambabuild --debug .
+----
 
 The main file is `recipe/meta.yaml`.
 [source,yaml]
@@ -11,7 +20,194 @@ The main file is `recipe/meta.yaml`.
 include::meta.yaml[]
 ----
 
-## Create Repository
+The `conda mambabuild` mentioned above produces a package in the local conda channel.
+It can be installed...
+
+[source,powershell]
+----
+conda install -c local qt-dummy
+----
+
+
+=== Examine the Build
+
+The compressed archive, which is the conda package`, will be something like...
+`C:\tools\miniconda3\conda-bld\win-64\qt-dummy-5.2.1-hedb21ad_0.tar.bz2`.
+You can expect the content of the archive to be..
+
+Name: qt-dummy-5.2.1-h9df6293_0.tar
+
+* etc
+* conda
+** activate.d : scripts run during activation
+*** qt-dummy-activate.bat
+*** qt-dummy-activate.sh
+** deactivate.d : scripts run during deactivation
+*** qt-dummy-deactivate.bat
+*** qt-dummy-deactivate.sh
+* info
+** licenses : LICENSE.txt
+** recipe : a copy of the recipe directory
+** test : the test scripts
+** about.json <<about_json>>
+** files <<files_paths_json>>
+** git : empty?
+** hash_input.json <<hash_input_json>>
+** index.json <<index_json>>
+** link.json <<link_json>>
+** paths.json <<files_paths_json>>
+* Scripts : scripts run during installation (removal)
+** .qt-dummy-post-link.bat
+** .qt-dummy-pre-unlink.bat
+
+
+=== about.json [[about_json]]
+
+[source,json]
+----
+{
+"channels": [
+"https://conda.anaconda.org/conda-forge",
+"https://repo.anaconda.com/pkgs/main"
+],
+"conda_build_version": "3.21.8",
+"conda_private": false,
+"conda_version": "4.12.0",
+"description": "Qt helps you create connected devices, UIs & applications that run\nanywhere on any device, on any operating system at any time.\nThis module provides a dummy installer for Qt.\nIt does not install any Qt package.\nIt configures the specified Conda environment to use the installed Qt.\nIt expects the appropriate Qt to have been previously acquired.\n",
+"dev_url": "https://github.com/qtproject",
+"doc_url": "https://www.qt.io/blog/2014/02/05/qt-5-2-1-released",
+"env_vars": {
+"CIO_TEST": "<not set>"
+},
+"extra": {
+"copy_test_source_files": true,
+"final": true,
+"recipe-maintainers": [
+"phreed"
+]
+},
+"home": "https://www.qt.io/",
+"identifiers": [],
+"keywords": [],
+"license": "LGPL-3.0-only",
+"license_file": "LICENSE.txt",
+"root_pkgs": [ ... ],
+],
+  "summary": "Qt is a cross-platform application and UI framework.",
+  "tags": []
+}
+----
+
+=== hash_input.json [[hash_input_json]]
+
+[source,json]
+----
+{
+  "channel_targets": "mesomorph main"
+}
+----
+
+=== index.json [[index_json]]
+
+[source,json]
+----
+{
+    "arch": null,
+    "build": "h9df6293_0",
+    "build_number": 0,
+    "depends": [],
+    "license": "LGPL-3.0-only",
+    "name": "qt-dummy",
+    "noarch": "generic",
+    "platform": null,
+    "subdir": "noarch",
+    "timestamp": 1652366964003,
+    "version": "5.2.1"
+}
+----
+
+=== link.json [[link_json]]
+
+[source,json]
+----
+{
+  "noarch": {
+    "type": "generic"
+  },
+  "package_metadata_version": 1
+}
+----
+
+=== files & paths.json [[files_paths_json]]
+
+The `files` and `paths.json` contain roughly the same information.
+
+`files`
+[source,txt]
+----
+Scripts/.qt-dummy-post-link.bat
+Scripts/.qt-dummy-pre-unlink.bat
+etc/conda/activate.d/qt-dummy-activate.bat
+etc/conda/activate.d/qt-dummy-activate.sh
+etc/conda/deactivate.d/qt-dummy-deactivate.bat
+etc/conda/deactivate.d/qt-dummy-deactivate.sh
+----
+
+`paths.json`
+[source,json]
+----
+{
+    "paths": [
+        {
+            "_path": "Scripts/.qt-dummy-post-link.bat",
+            "path_type": "hardlink",
+            "sha256": "301460b1bcb0e93cc2a622c77de0b6e0f10c2b4c38f97df233c62fbfff0ee60b",
+            "size_in_bytes": 1510
+        },
+        {
+            "_path": "Scripts/.qt-dummy-pre-unlink.bat",
+            "path_type": "hardlink",
+            "sha256": "4c632872891a1eb284b7485a67951c96df31432a07d92386b7068bcb925e07a3",
+            "size_in_bytes": 471
+        },
+        {
+            "_path": "etc/conda/activate.d/qt-dummy-activate.bat",
+            "path_type": "hardlink",
+            "sha256": "d0924bc41766836d9fc7b3455d2881b18b3eda09ae6ddfe49f8f3ea82a34bb7e",
+            "size_in_bytes": 3165
+        },
+        {
+            "_path": "etc/conda/activate.d/qt-dummy-activate.sh",
+            "path_type": "hardlink",
+            "sha256": "6861c6023750c50aa80a6320c865932de686e5f02426830a9c13eac91149c460",
+            "size_in_bytes": 3139
+        },
+        {
+            "_path": "etc/conda/deactivate.d/qt-dummy-deactivate.bat",
+            "path_type": "hardlink",
+            "sha256": "5d73b742775e754b9347a204bd5c87fa08d3c3841b9e7566b4eb4c056f639696",
+            "size_in_bytes": 329
+        },
+        {
+            "_path": "etc/conda/deactivate.d/qt-dummy-deactivate.sh",
+            "path_type": "hardlink",
+            "sha256": "dd09c4cfa0c60f2f56b038a0546c63c6397077b065e03bb7aafdf28270809b29",
+            "size_in_bytes": 324
+        }
+    ],
+    "paths_version": 1
+}
+----
+
+== Building with `conda smithy`
+
+The process for creating the conda-smithy `qt-dummy-feedstock`.
+
+Starting from link:https://github.com/phreed/my-conda-pkg-feedstock[the sample].
+There are several tutorials and `conda-smithy` is moving quickly.
+
+
+=== Create Repository
 
 A fresh git repository `qt-dummy-feedstock` can be generated.
 The only required content is `recipe/meta.yaml`.
@@ -21,7 +217,7 @@ The only required content is `recipe/meta.yaml`.
 mamba smithy init --feedstock-directory ../qt-dummy-feedstock2 ./recipe
 ----
 
-## GitHub Registration
+=== GitHub Registration
 
 link:https://conda-forge.org/docs/maintainer/conda_forge_yml.html[Configure the upload channels].
 [source,yaml]
@@ -41,7 +237,7 @@ mamba smithy register-github --user phreed .
 This creates a new github repository (if it does not already exist), but it does not populate it.
 
 
-## CI Registration
+=== CI Registration
 
 If CI is done with github-actions then no CI registration is required.
 CI is configured via `../
@@ -50,7 +246,7 @@ CI is configured via `../
 mamba smithy register-ci --feedstock_directory . --user phreed --without-travis --without-circle --without-drone --without-azure --without-appveyor
 ----
 
-## Anaconda Token
+=== Anaconda Token
 
 This mostly just
 link:https://github.com/phreed/qt-dummy-feedstock/settings/secrets/actions[adds the BINSTAR_TOKEN]
@@ -62,7 +258,7 @@ The value of the BINSTAR_TOKEN is taken from `~/.conda-smithy/anaconda.token`.
 mamba smithy update-anaconda-token --feedstock_directory . --user phreed --without-travis --without-circle --without-drone --without-azure --without-appveyor
 ----
 
-## Generate the Scripts
+=== Generate the Scripts
 
 Now build the scripts needed by the specified tooling.
 
@@ -71,7 +267,7 @@ Now build the scripts needed by the specified tooling.
 mamba smithy regenerate --feedstock_directory .
 ----
 
-## Commit and Push to GitHub
+=== Commit and Push to GitHub
 
 Finally, push the configured feedstock to github for building and deployment.
 
@@ -81,18 +277,18 @@ git commit -m "MNT: Regenerate"
 git push upstream main
 ----
 
-## Examine the Build
+=== Examine the Build
 
 link:https://github.com/phreed/qt-dummy-feedstock/actions[Check the Github action status.]
 Click through the links to the workflow log.
 Open the "Build on Linux" -> "Uploading Packages" to make sure it got uploaded to Anaconda.
 link:https://anaconda.org/mesomorph/repo[Verify that the Anaconda mesomorph channel is correct.]
 
-## Install the Package
+== Install the Package
 
 see link:../README.md[the installation instructions].
 
-## Subsequent Changes
+== Subsequent Changes
 
 In general when something is changed the `recipe/meta.yaml` needs to either have its
 version changed or its `build` : `number` incremented.
