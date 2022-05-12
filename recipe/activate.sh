@@ -3,7 +3,7 @@
 PKG_UUID="${PKG_NAME}-${PKG_VERSION}_${PKG_BUILDNUM}"
 CONDA_MESO="${CONDA_PREFIX}/conda-meso/${PKG_UUID}"
 
-MY_SELF=$(basename "$0")
+MY_SELF="$@"
 cat - << SHOW_IMPORTANT_ENV_VARIABLES
 Starting ${MY_SELF}
 Activating in ${CONDA_PREFIX}
@@ -96,4 +96,4 @@ EOF_QT_DUMMY_CONF
 
 cp "${CONDA_PREFIX}/Library/bin/qt-dummy.conf" "${CONDA_PREFIX}/qt-dummy.conf"
 echo "Activation complete"
-exit 0
+
