@@ -70,14 +70,14 @@ DEACTIVATE_SCRIPT="${CONDA_MESO}/deactivate.sh"
 echo "Writing revert-script to ${DEACTIVATE_SCRIPT}"
 cat - << END_OF_DEACTIVATE_SCRIPT > "${DEACTIVATE_SCRIPT}"
 #/bin/bash -euo
-export QT_BASE_DIR=${QT_BASE_DIR}
-export QTDIR=${QTDIR}
-export QT_BIN_DIR=${QT_BIN_DIR}
-export PATH=${PATH}
+export QT_BASE_DIR="${QT_BASE_DIR}"
+export QTDIR="${QTDIR}"
+export QT_BIN_DIR="${QT_BIN_DIR}"
+export PATH="${PATH}"
 END_OF_DEACTIVATE_SCRIPT
 
 export QT_BASE_DIR="${QT_DIR}"
-export QTDIR="${QT_DIR}/msvc2010"
+export QTDIR="${QT_DIR}/${PKG_VERSION}/gcc_64"
 export QT_BIN_DIR="${QTDIR}/bin"
 export PATH="${PATH}:${QT_BIN_DIR}"
 

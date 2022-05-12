@@ -38,11 +38,13 @@ Current release info
 Installing qt-dummy
 ===================
 
+Installing `qt-dummy` from the `mesomorph` channel can be installed:
+ 
 ```
 mamba install -c mesomorph qt-dummy -n cts --force-reinstall
 ```
 
-Installing `qt-dummy` from the `mesomorph` channel can be achieved by adding `mesomorph` to your channels with:
+The `mesomorph` channel can be added to the default channels with:
 
 ```
 conda config --add channels mesomorph
@@ -61,7 +63,7 @@ or with `mamba`:
 mamba install qt-dummy
 ```
 
-It is possible to list all of the versions of `qt-dummy` available on your platform with `conda`:
+It is possible to list all the versions of `qt-dummy` available on your platform with `conda`:
 
 ```
 conda search qt-dummy --channel mesomorph
@@ -87,22 +89,11 @@ mamba repoquery depends qt-dummy --channel mesomorph
 ```
 
 
-
-
 Updating qt-dummy-feedstock
 ===========================
 
 If you would like to improve the qt-dummy recipe or build a new
-package version, please fork this repository and submit a PR. Upon submission,
-your changes will be run on the appropriate platforms to give the reviewer an
-opportunity to confirm that the changes result in a successful build. Once
-merged, the recipe will be re-built and uploaded automatically to the
-`mesomorph` channel, whereupon the built conda packages will be available for
-everybody to install and use from the `mesomorph` channel.
-Note that all branches in the phreed/qt-dummy-feedstock are
-immediately built and any created packages are uploaded, so PRs should be based
-on branches in forks and branches in the main repository should only be used to
-build distinct package versions.
+package version, please fork this repository and submit a PR. 
 
 In order to produce a uniquely identifiable distribution:
  * If the version of a package **is not** being increased, please add or increase
