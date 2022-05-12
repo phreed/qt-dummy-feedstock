@@ -1,6 +1,15 @@
 = Build `qt-dummy`
 
+The following prerequisites are presumed.
 
+
+[source,powershell]
+----
+conda install mamba
+mamba install boa
+mamba install conda-smithy
+mamba install conda-build
+----
 
 
 == Building During Development
@@ -11,7 +20,7 @@ Note:: From here on out I will assume the recipe path is the current working dir
 
 [source,powershell]
 ----
-conda mambabuild --debug .
+conda mambabuild --debug --keep-old-work .
 ----
 
 The main file is `recipe/meta.yaml`.
@@ -19,6 +28,8 @@ The main file is `recipe/meta.yaml`.
 ----
 include::meta.yaml[]
 ----
+
+The `build` cannot be `noarch: generic` because the install and activation are platform specific.
 
 The `conda mambabuild` mentioned above produces a package in the local conda channel.
 It can be installed...
@@ -60,41 +71,44 @@ Name: qt-dummy-5.2.1-h9df6293_0.tar
 ** .qt-dummy-post-link.bat
 ** .qt-dummy-pre-unlink.bat
 
+Note that `Scripts` for `build: noarch: generic` should not be
+expected to work correctly.
+
+
 
 === about.json [[about_json]]
 
 [source,json]
 ----
 {
-"channels": [
-"https://conda.anaconda.org/conda-forge",
-"https://repo.anaconda.com/pkgs/main"
-],
-"conda_build_version": "3.21.8",
-"conda_private": false,
-"conda_version": "4.12.0",
-"description": "Qt helps you create connected devices, UIs & applications that run\nanywhere on any device, on any operating system at any time.\nThis module provides a dummy installer for Qt.\nIt does not install any Qt package.\nIt configures the specified Conda environment to use the installed Qt.\nIt expects the appropriate Qt to have been previously acquired.\n",
-"dev_url": "https://github.com/qtproject",
-"doc_url": "https://www.qt.io/blog/2014/02/05/qt-5-2-1-released",
-"env_vars": {
-"CIO_TEST": "<not set>"
-},
-"extra": {
-"copy_test_source_files": true,
-"final": true,
-"recipe-maintainers": [
-"phreed"
-]
-},
-"home": "https://www.qt.io/",
-"identifiers": [],
-"keywords": [],
-"license": "LGPL-3.0-only",
-"license_file": "LICENSE.txt",
-"root_pkgs": [ ... ],
-],
-  "summary": "Qt is a cross-platform application and UI framework.",
-  "tags": []
+    "channels": [
+        "https://conda.anaconda.org/conda-forge",
+        "https://repo.anaconda.com/pkgs/main"
+    ],
+    "conda_build_version": "3.21.8",
+    "conda_private": false,
+    "conda_version": "4.12.0",
+    "description": "Qt helps you create connected devices, UIs & applications that run\nanywhere on any device, on any operating system at any time.\nThis module provides a dummy installer for Qt.\nIt does not install any Qt package.\nIt configures the specified Conda environment to use the installed Qt.\nIt expects the appropriate Qt to have been previously acquired.\n",
+    "dev_url": "https://github.com/qtproject",
+    "doc_url": "https://www.qt.io/blog/2014/02/05/qt-5-2-1-released",
+    "env_vars": {
+      "CIO_TEST": "<not set>"
+    },
+    "extra": {
+        "copy_test_source_files": true,
+        "final": true,
+        "recipe-maintainers": [
+          "phreed"
+        ]
+    },
+    "home": "https://www.qt.io/",
+    "identifiers": [],
+    "keywords": [],
+    "license": "LGPL-3.0-only",
+    "license_file": "LICENSE.txt",
+    "root_pkgs": [ "..." ],
+    "summary": "Qt is a cross-platform application and UI framework.",
+    "tags": []
 }
 ----
 

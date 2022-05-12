@@ -1,35 +1,36 @@
-# header written by build.sh and bld.bat
+# header is written by build.sh or bld.bat
 
 PKG_UUID="${PKG_NAME}-${PKG_VERSION}_${PKG_BUILDNUM}"
 CONDA_MESO="${CONDA_PREFIX}/conda-meso/${PKG_UUID}"
 
 MY_SELF=$(basename "$0")
-{
-  echo "Starting ${MY_SELF}"
-  echo "Activating in ${CONDA_PREFIX}"
-  echo "   CONDA_ROOT   : ${CONDA_ROOT}"
-  echo "   CONDA_QUIET  : ${CONDA_QUIET}"
-  echo "   PKG_NAME     : ${PKG_NAME}"
-  echo "   PKG_VERSION  : ${PKG_VERSION}"
-  echo "   PKG_BUILDNUM : ${PKG_BUILDNUM}"
-  echo "   PKG_UUID     : ${PKG_UUID}"
+cat - << SHOW_IMPORTANT_ENV_VARIABLES
+Starting ${MY_SELF}
+Activating in ${CONDA_PREFIX}
+   CONDA_ROOT   : ${CONDA_ROOT}
+   CONDA_QUIET  : ${CONDA_QUIET}
+   PKG_NAME     : ${PKG_NAME}
+   PKG_VERSION  : ${PKG_VERSION}
+   PKG_BUILDNUM : ${PKG_BUILDNUM}
+   PKG_UUID     : ${PKG_UUID}
 
-  echo "   CONDA_JSON   : ${CONDA_JSON}"
-  echo "   CONDA_EXE    : ${CONDA_EXE}"
-  echo "   CONDA_EXES   : ${CONDA_EXES}"
-  echo "   CONDA_MESO   : ${CONDA_MESO}"
+   CONDA_JSON   : ${CONDA_JSON}
+   CONDA_EXE    : ${CONDA_EXE}
+   CONDA_EXES   : ${CONDA_EXES}
+   CONDA_MESO   : ${CONDA_MESO}
 
-  echo "   CONDA_PREFIX          : ${CONDA_PREFIX}"
-  echo "   CONDA_PREFIX_1        : ${CONDA_PREFIX_1}"
+   CONDA_PREFIX          : ${CONDA_PREFIX}
+   CONDA_PREFIX_1        : ${CONDA_PREFIX_1}
 
-  echo "   CONDA_DEFAULT_ENV     : ${CONDA_DEFAULT_ENV}"
-  echo "   CONDA_PROMPT_MODIFIER : ${CONDA_PROMPT_MODIFIER}"
-  echo "   CONDA_PYTHON_EXE      : ${CONDA_PYTHON_EXE}"
-  echo "   CONDA_SHLVL           : ${CONDA_SHLVL}"
+   CONDA_DEFAULT_ENV     : ${CONDA_DEFAULT_ENV}
+   CONDA_PROMPT_MODIFIER : ${CONDA_PROMPT_MODIFIER}
+   CONDA_PYTHON_EXE      : ${CONDA_PYTHON_EXE}
+   CONDA_SHLVL           : ${CONDA_SHLVL}
 
-  echo "   CONDA_ALLOW_SOFTLINKS : ${CONDA_ALLOW_SOFTLINKS}"
-  echo "   CONDA_PATH_CONFLICT   : ${CONDA_PATH_CONFLICT}"
-}
+   CONDA_ALLOW_SOFTLINKS : ${CONDA_ALLOW_SOFTLINKS}
+   CONDA_PATH_CONFLICT   : ${CONDA_PATH_CONFLICT}
+SHOW_IMPORTANT_ENV_VARIABLES
+
 [ -e "${CONDA_MESO}" ] || mkdir -p "${CONDA_MESO}"
 
 # Discovery
@@ -67,24 +68,23 @@ fi
 
 DEACTIVATE_SCRIPT="${CONDA_MESO}/deactivate.sh"
 echo "Writing revert-script to ${DEACTIVATE_SCRIPT}"
-{
-  printf "#!/bin/bash -euo\n"
-  echo "export QT_BASE_DIR=${QT_BASE_DIR}"
-  echo "export QTDIR=${QTDIR}"
-  echo "export QT_BIN_DIR=${QT_BIN_DIR}"
-  echo "export PATH=${PATH}"
-} > "${DEACTIVATE_SCRIPT}"
+cat - << END_OF_DEACTIVATE_SCRIPT > "${DEACTIVATE_SCRIPT}"
+#/bin/bash -euo
+export QT_BASE_DIR=${QT_BASE_DIR}
+export QTDIR=${QTDIR}
+export QT_BIN_DIR=${QT_BIN_DIR}
+export PATH=${PATH}
+END_OF_DEACTIVATE_SCRIPT
 
 export QT_BASE_DIR="${QT_DIR}"
 export QTDIR="${QT_DIR}\msvc2010"
 export QT_BIN_DIR="${QTDIR}\bin"
-export PATH=${PATH};${QT_BIN_DIR}"
+export PATH="${PATH};${QT_BIN_DIR}"
 
 [ -d "${CONDA_PREFIX}\Library" ] || mkdir "${CONDA_PREFIX}\Library"
 [ -d "${CONDA_PREFIX}\Library\bin" ] || mkdir "${CONDA_PREFIX}\Library\bin"
 
-(
-cat <<'EOF_QT'
+cat - <<EOF_QT_DUMMY_CONF > "${CONDA_PREFIX}\Library\bin\qt-dummy.conf"
 [Paths]
 Prefix = ${CONDA_PREFIX}/Library
 Binaries = ${CONDA_PREFIX}/Library/bin
@@ -92,8 +92,7 @@ Libraries = ${CONDA_PREFIX}/Library/lib
 Headers = ${CONDA_PREFIX}/Library/include/qt
 TargetSpec = win32-msvc
 HostSpec = win32-msvc
-EOF_QT
-) > "${CONDA_PREFIX}\Library\bin\qt-dummy.conf"
+EOF_QT_DUMMY_CONF
 
 cp "${CONDA_PREFIX}\Library\bin\qt-dummy.conf" "${CONDA_PREFIX}\qt-dummy.conf"
 

@@ -9,6 +9,8 @@ rem  This causes them to be run on environment [de]activation.
 rem  https://github.com/mamba-org/mamba/blob/master/libmamba/src/core/activation.cpp#L32-L47
 if errorlevel 1 exit 1
 
+echo %~f0
+
 for %%G in (activate deactivate) do (
 
     if not exist %PREFIX%\etc\conda\%%G.d mkdir %PREFIX%\etc\conda\%%G.d
