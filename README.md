@@ -38,6 +38,10 @@ Current release info
 Installing qt-dummy
 ===================
 
+```
+mamba install -c mesomorph qt-dummy -n cts --force-reinstall
+```
+
 Installing `qt-dummy` from the `mesomorph` channel can be achieved by adding `mesomorph` to your channels with:
 
 ```

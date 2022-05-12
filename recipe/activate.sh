@@ -31,7 +31,7 @@ Activating in ${CONDA_PREFIX}
    CONDA_PATH_CONFLICT   : ${CONDA_PATH_CONFLICT}
 SHOW_IMPORTANT_ENV_VARIABLES
 
-[ -e "${CONDA_MESO}" ] || mkdir -p "${CONDA_MESO}"
+[ -d "${CONDA_MESO}" ] || mkdir -p "${CONDA_MESO}"
 
 # Discovery
 WIP=0
@@ -79,12 +79,12 @@ END_OF_DEACTIVATE_SCRIPT
 export QT_BASE_DIR="${QT_DIR}"
 export QTDIR="${QT_DIR}/msvc2010"
 export QT_BIN_DIR="${QTDIR}/bin"
-export PATH="${PATH};${QT_BIN_DIR}"
+export PATH="${PATH}:${QT_BIN_DIR}"
 
-[ -d "${CONDA_PREFIX}/Library" ] || mkdir "${CONDA_PREFIX}/Library"
-[ -d "${CONDA_PREFIX}/Library/bin" ] || mkdir "${CONDA_PREFIX}/Library/bin"
-
-cat - <<EOF_QT_DUMMY_CONF > "${CONDA_PREFIX}/Library/bin/qt-dummy.conf"
+[ -d "${CONDA_PREFIX}/Library/bin" ] || mkdir -p "${CONDA_PREFIX}/Library/bin"
+QT_DUMMY_CONF="${CONDA_PREFIX}/Library/bin/qt-dummy.conf"
+echo "Writing qt-dummy.conf to ${QT_DUMMY_CONF}"
+cat - <<EOF_QT_DUMMY_CONF > "${QT_DUMMY_CONF}"
 [Paths]
 Prefix = ${CONDA_PREFIX}/Library
 Binaries = ${CONDA_PREFIX}/Library/bin
@@ -95,5 +95,5 @@ HostSpec = win32-msvc
 EOF_QT_DUMMY_CONF
 
 cp "${CONDA_PREFIX}/Library/bin/qt-dummy.conf" "${CONDA_PREFIX}/qt-dummy.conf"
-
+echo "Activation complete"
 exit 0

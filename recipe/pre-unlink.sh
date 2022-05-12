@@ -14,7 +14,7 @@ PKG_BIN="${CONDA_PREFIX}/bin"
 PKG_UUID="${PKG_NAME}-${PKG_VERSION}_${PKG_BUILDNUM}"
 
 CONDA_MESO="${CONDA_PREFIX}/conda-meso/${PKG_UUID}"
-[ -e "%CONDA_MESO%" ] || mkdir -p "${CONDA_MESO}"
+[ -d "%CONDA_MESO%" ] || mkdir -p "${CONDA_MESO}"
 
 cat - << SHOW_IMPORTANT_ENV_VARIABLES >> "${CONDA_PREFIX}/.messages.txt"
 Finishing ${MY_SELF}

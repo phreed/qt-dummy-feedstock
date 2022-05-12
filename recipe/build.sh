@@ -9,7 +9,7 @@ echo "$0"
 
 for CHANGE in "activate" "deactivate"
 do
-  mkdir -p "${PREFIX}/etc/conda/${CHANGE}.d"
+  [ -d "${PREFIX}/etc/conda/${CHANGE}.d" ] || mkdir -p "${PREFIX}/etc/conda/${CHANGE}.d"
   BASH_SCRIPT="${PREFIX}/etc/conda/${CHANGE}.d/${PKG_NAME}-${CHANGE}.sh"
   cat - "${RECIPE_DIR}/${CHANGE}.sh" << END_OF_MESSAGE > "${BASH_SCRIPT}"
 #!/bin/bash -euo
