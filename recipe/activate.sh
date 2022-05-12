@@ -77,14 +77,14 @@ export PATH=${PATH}
 END_OF_DEACTIVATE_SCRIPT
 
 export QT_BASE_DIR="${QT_DIR}"
-export QTDIR="${QT_DIR}\msvc2010"
-export QT_BIN_DIR="${QTDIR}\bin"
+export QTDIR="${QT_DIR}/msvc2010"
+export QT_BIN_DIR="${QTDIR}/bin"
 export PATH="${PATH};${QT_BIN_DIR}"
 
-[ -d "${CONDA_PREFIX}\Library" ] || mkdir "${CONDA_PREFIX}\Library"
-[ -d "${CONDA_PREFIX}\Library\bin" ] || mkdir "${CONDA_PREFIX}\Library\bin"
+[ -d "${CONDA_PREFIX}/Library" ] || mkdir "${CONDA_PREFIX}/Library"
+[ -d "${CONDA_PREFIX}/Library/bin" ] || mkdir "${CONDA_PREFIX}/Library/bin"
 
-cat - <<EOF_QT_DUMMY_CONF > "${CONDA_PREFIX}\Library\bin\qt-dummy.conf"
+cat - <<EOF_QT_DUMMY_CONF > "${CONDA_PREFIX}/Library/bin/qt-dummy.conf"
 [Paths]
 Prefix = ${CONDA_PREFIX}/Library
 Binaries = ${CONDA_PREFIX}/Library/bin
@@ -94,6 +94,6 @@ TargetSpec = win32-msvc
 HostSpec = win32-msvc
 EOF_QT_DUMMY_CONF
 
-cp "${CONDA_PREFIX}\Library\bin\qt-dummy.conf" "${CONDA_PREFIX}\qt-dummy.conf"
+cp "${CONDA_PREFIX}/Library/bin/qt-dummy.conf" "${CONDA_PREFIX}/qt-dummy.conf"
 
 exit 0
