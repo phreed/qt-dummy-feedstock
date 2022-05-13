@@ -23,4 +23,4 @@ Finishing ${MY_SELF}
   CONDA_MESO:  ${CONDA_MESO}
 SHOW_IMPORTANT_ENV_VARIABLES
 
-return 0 || exit 0
+true

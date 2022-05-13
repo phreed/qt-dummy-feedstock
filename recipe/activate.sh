@@ -63,7 +63,8 @@ EOF
       *) echo "unknown $OSTYPE" ;;
     esac
   }
-  return 0 2> /dev/null | exit 0
+  true
+  return
 fi
 
 DEACTIVATE_SCRIPT="${CONDA_MESO}/deactivate.sh"

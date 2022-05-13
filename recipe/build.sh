@@ -22,4 +22,4 @@ END_OF_MESSAGE
 
 done
 
-return 0 || exit 0
+true
