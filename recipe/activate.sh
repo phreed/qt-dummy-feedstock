@@ -31,19 +31,19 @@ Activating in ${CONDA_PREFIX}
    CONDA_PATH_CONFLICT   : ${CONDA_PATH_CONFLICT}
 SHOW_IMPORTANT_ENV_VARIABLES
 
-[ -d "${CONDA_MESO}" ] || mkdir -p "${CONDA_MESO}"
+[[ -d $CONDA_MESO ]] || mkdir -p "${CONDA_MESO}"
 
 # Discovery
 WIP=0
 for gx in ~/Qt${PKG_VERSION} /opt/Qt${PKG_VERSION}; do
-  if [ -d $gx ]; then
+  if [[ -d $gx ]]; then
     export QT_DIR="$gx"
     break
   fi
 done
 
 echo "Qt dir = ${QT_DIR}"
-if [ ! -d "${QT_DIR}" ]; then
+if [[ ! -d $QT_DIR ]]; then
   IFS=. read MAJOR MINOR MICRO BUILD << EOF
   ${PKG_VERSION##*-}
 EOF
@@ -72,16 +72,32 @@ cat - << END_OF_DEACTIVATE_SCRIPT > "${DEACTIVATE_SCRIPT}"
 #/bin/bash -euo
 export QT_BASE_DIR="${QT_BASE_DIR}"
 export QTDIR="${QTDIR}"
-export QT_BIN_DIR="${QT_BIN_DIR}"
 export PATH="${PATH}"
 END_OF_DEACTIVATE_SCRIPT
 
 export QT_BASE_DIR="${QT_DIR}"
 export QTDIR="${QT_DIR}/${PKG_VERSION}/gcc_64"
-export QT_BIN_DIR="${QTDIR}/bin"
-export PATH="${PATH}:${QT_BIN_DIR}"
 
-[ -d "${CONDA_PREFIX}/Library/bin" ] || mkdir -p "${CONDA_PREFIX}/Library/bin"
+SRC_BIN="${QTDIR}/bin"
+TGT_BIN="${CONDA_PREFIX}/bin"
+
+echo "Preparing to link *.exe files, from ${QTDIR}."
+
+[[ -d ${TGT_BIN} ]] || mkdir -p "${TGT_BIN}"
+for ix in "${SRC_BIN}"/*; do
+  BASE_NAME=$(basename -- "${ix}")
+  jx="${TGT_BIN}/${BASE_NAME}"
+  if [[ -f  $jx ]] ; then
+    rm "$jx"
+    echo "link ${jx} is being overwritten"
+  fi
+  ln "${ix}" "${jx}" || echo "failed creating link ${jx} to ${ix}"
+  echo "# ln \"${ix}\" \"${jx}\"" >> "${DEACTIVATE_SCRIPT}"
+  echo "rm \"${jx}\"" >> "${DEACTIVATE_SCRIPT}"
+done
+
+TGT_BIN_LIB="${CONDA_PREFIX}/Library/bin"
+[[ -d ${TGT_BIN_LIB} ]] || mkdir -p "${TGT_BIN_LIB}"
 DUMMY_CONF="${CONDA_PREFIX}/Library/bin/qt-dummy.conf"
 echo "Writing qt-dummy.conf to ${DUMMY_CONF}"
 cat - <<EOF_DUMMY_CONF > "${DUMMY_CONF}"

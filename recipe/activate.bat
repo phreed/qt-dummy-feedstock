@@ -62,14 +62,18 @@ echo Writing revert-script to %DEACTIVATE_SCRIPT%
 
 set "QT_BASE_DIR=%QT_DIR%"
 set "QTDIR=%QT_DIR%\msvc2010"
-set "QT_BIN_SRC_DIR=%QTDIR%\bin"
+set "SRC_BIN=%QTDIR%\bin"
+set "TGT_BIN=%CONDA_PREFIX%\bin"
 
-if not exist "%QT_BIN_DIR%" mkdir "%QT_BIN_DIR%"
-for /R "%QT_DIR%\bin" %%G in (*.exe) do (
-  for %%H in (%QT_BIN_DIR%\%%~nxG) do (
-      if not exist "%%H" (
-        mklink /H "%%H" "%%G" || echo failed linking "%%H" "%%G"
+if not exist "%TGT_BIN%" mkdir "%TGT_BIN%"
+for /R "%SRC_BIN%" %%G in (*.exe) do (
+  for %%H in (%TGT_BIN%\%%~nxG) do (
+      if exist "%%H" (
+        del "%%H"
+        echo link %%H is being overwritten
       )
+      mklink /H "%%H" "%%G" || echo failed creating link "%%H" to "%%G"
+      echo rem mklink /H "%%H" "%%G"  >> "%DEACTIVATE_SCRIPT%"
       echo del "%%H" >> "%DEACTIVATE_SCRIPT%"
   )
 )
@@ -92,4 +96,3 @@ rem Some things go looking in the prefix root (pyqt, for example)
 copy "%CONDA_PREFIX%\Library\bin\qt-dummy.conf" "%CONDA_PREFIX%\qt-dummy.conf"
 
 exit /B 0
-

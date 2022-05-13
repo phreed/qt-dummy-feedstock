@@ -9,8 +9,10 @@ echo "$0"
 
 for CHANGE in "activate" "deactivate"
 do
-  [ -d "${PREFIX}/etc/conda/${CHANGE}.d" ] || mkdir -p "${PREFIX}/etc/conda/${CHANGE}.d"
-  BASH_SCRIPT="${PREFIX}/etc/conda/${CHANGE}.d/${PKG_NAME}-${CHANGE}.sh"
+  TGT_CHG_DIR="${PREFIX}/etc/conda/${CHANGE}.d"
+  [[ -d ${TGT_CHG_DIR} ]] || mkdir -p "${TGT_CHG_DIR}"
+  BASH_SCRIPT="${TGT_CHG_DIR}/${PKG_NAME}-${CHANGE}.sh"
+
   cat - "${RECIPE_DIR}/${CHANGE}.sh" << END_OF_MESSAGE > "${BASH_SCRIPT}"
 #!/bin/bash -euo
 export PKG_NAME=${PKG_NAME}
@@ -20,4 +22,4 @@ END_OF_MESSAGE
 
 done
 
-return 0 2> /dev/null | exit 0
+return 0 || exit 0
