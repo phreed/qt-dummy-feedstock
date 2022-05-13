@@ -95,4 +95,6 @@ if not exist "%CONDA_PREFIX%\Library\bin" mkdir "%CONDA_PREFIX%\Library\bin"
 rem Some things go looking in the prefix root (pyqt, for example)
 copy "%CONDA_PREFIX%\Library\bin\qt-dummy.conf" "%CONDA_PREFIX%\qt-dummy.conf"
 
+echo Activation of %PKG_NAME% complete.
+
 exit /B 0

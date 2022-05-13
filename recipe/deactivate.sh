@@ -9,5 +9,5 @@ if [[ -f $DEACTIVATE_SCRIPT ]]; then
   rm -f "${DEACTIVATE_SCRIPT}"
 fi
 
-echo "Deactivation complete"
+echo "Deactivation of ${PKG_NAME} complete"
 true

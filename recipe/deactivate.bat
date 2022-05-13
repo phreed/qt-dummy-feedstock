@@ -9,3 +9,4 @@ if exist "%DEACTIVATE_SCRIPT%" do (
   del "%DEACTIVATE_SCRIPT%"
 )
 
+echo Deactivation of %PKG_NAME% complete.

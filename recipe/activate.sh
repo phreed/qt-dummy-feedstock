@@ -117,6 +117,6 @@ cp "${DUMMY_CONF}" "${CONDA_PREFIX}/qt-dummy.conf"
 echo "rm \"${DUMMY_CONF}\"" >> "${DEACTIVATE_SCRIPT}"
 echo "rm \"${CONDA_PREFIX}/qt-dummy.conf\"" >> "${DEACTIVATE_SCRIPT}"
 
-echo "Activation complete"
+echo "Activation of ${PKG_NAME} complete"
 true
 
