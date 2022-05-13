@@ -1,5 +1,7 @@
 # header is written by build.sh or bld.bat
 
+# `activate.sh` is run as `source activate` so `exit` cannot be used.
+
 PKG_UUID="${PKG_NAME}-${PKG_VERSION}_${PKG_BUILDNUM}"
 CONDA_MESO="${CONDA_PREFIX}/conda-meso/${PKG_UUID}"
 
@@ -85,16 +87,16 @@ TGT_BIN="${CONDA_PREFIX}/bin"
 echo "Preparing to link *.exe files, from ${QTDIR}."
 
 [[ -d ${TGT_BIN} ]] || mkdir -p "${TGT_BIN}"
+echo "# linking from ${SRC_BIN}" >> "${DEACTIVATE_SCRIPT}"
 for ix in "${SRC_BIN}"/*; do
   BASE_NAME=$(basename -- "${ix}")
   jx="${TGT_BIN}/${BASE_NAME}"
   if [[ -f  $jx ]] ; then
-    rm "$jx"
-    echo "link ${jx} is being overwritten"
+     rm -f "$jx"
+     echo "link ${jx} is being overwritten"
   fi
   ln "${ix}" "${jx}" || echo "failed creating link ${jx} to ${ix}"
-  echo "# ln \"${ix}\" \"${jx}\"" >> "${DEACTIVATE_SCRIPT}"
-  echo "rm \"${jx}\"" >> "${DEACTIVATE_SCRIPT}"
+  echo "rm -f \"${jx}\"" >> "${DEACTIVATE_SCRIPT}"
 done
 
 TGT_BIN_LIB="${CONDA_PREFIX}/Library/bin"
@@ -112,5 +114,9 @@ HostSpec = linux64
 EOF_DUMMY_CONF
 
 cp "${DUMMY_CONF}" "${CONDA_PREFIX}/qt-dummy.conf"
+echo "rm \"${DUMMY_CONF}\"" >> "${DEACTIVATE_SCRIPT}"
+echo "rm \"${CONDA_PREFIX}/qt-dummy.conf\"" >> "${DEACTIVATE_SCRIPT}"
+
 echo "Activation complete"
+true
 

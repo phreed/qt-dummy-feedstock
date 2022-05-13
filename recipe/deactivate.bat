@@ -8,3 +8,4 @@ if exist "%DEACTIVATE_SCRIPT%" do (
   call "%DEACTIVATE_SCRIPT%"
   del "%DEACTIVATE_SCRIPT%"
 )
+

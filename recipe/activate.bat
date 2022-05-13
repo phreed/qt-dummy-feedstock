@@ -66,6 +66,7 @@ set "SRC_BIN=%QTDIR%\bin"
 set "TGT_BIN=%CONDA_PREFIX%\bin"
 
 if not exist "%TGT_BIN%" mkdir "%TGT_BIN%"
+echo rem linking from "%SRC_BIN%" >> "%DEACTIVATE_SCRIPT%"
 for /R "%SRC_BIN%" %%G in (*.exe) do (
   for %%H in (%TGT_BIN%\%%~nxG) do (
       if exist "%%H" (
@@ -73,7 +74,6 @@ for /R "%SRC_BIN%" %%G in (*.exe) do (
         echo link %%H is being overwritten
       )
       mklink /H "%%H" "%%G" || echo failed creating link "%%H" to "%%G"
-      echo rem mklink /H "%%H" "%%G"  >> "%DEACTIVATE_SCRIPT%"
       echo del "%%H" >> "%DEACTIVATE_SCRIPT%"
   )
 )
