@@ -49,7 +49,7 @@ if [ ! -d "${QT_DIR}" ]; then
 EOF
   PKG_MAJOR_MINOR="$MAJOR.$MINOR"
   {
-    echo "The target JDK version has not been installed. ${QT_DIR}";
+    echo "The target Qt version has not been installed. ${QT_DIR}";
     case "$OSTYPE" in
       darwin*)
         echo "see https://download.qt.io/new_archive/qt/${PKG_MAJOR_MINOR}/${PKG_VERSION}/qt-opensource-mac-x64-clang-{{ version }}.dmg"
@@ -63,7 +63,7 @@ EOF
       *) echo "unknown $OSTYPE" ;;
     esac
   }
-  exit 0
+  return 0 2> /dev/null | exit 0
 fi
 
 DEACTIVATE_SCRIPT="${CONDA_MESO}/deactivate.sh"
@@ -82,18 +82,18 @@ export QT_BIN_DIR="${QTDIR}/bin"
 export PATH="${PATH}:${QT_BIN_DIR}"
 
 [ -d "${CONDA_PREFIX}/Library/bin" ] || mkdir -p "${CONDA_PREFIX}/Library/bin"
-QT_DUMMY_CONF="${CONDA_PREFIX}/Library/bin/qt-dummy.conf"
-echo "Writing qt-dummy.conf to ${QT_DUMMY_CONF}"
-cat - <<EOF_QT_DUMMY_CONF > "${QT_DUMMY_CONF}"
+DUMMY_CONF="${CONDA_PREFIX}/Library/bin/qt-dummy.conf"
+echo "Writing qt-dummy.conf to ${DUMMY_CONF}"
+cat - <<EOF_DUMMY_CONF > "${DUMMY_CONF}"
 [Paths]
 Prefix = ${CONDA_PREFIX}/Library
 Binaries = ${CONDA_PREFIX}/Library/bin
 Libraries = ${CONDA_PREFIX}/Library/lib
 Headers = ${CONDA_PREFIX}/Library/include/qt
-TargetSpec = win32-msvc
-HostSpec = win32-msvc
-EOF_QT_DUMMY_CONF
+TargetSpec = linux64
+HostSpec = linux64
+EOF_DUMMY_CONF
 
-cp "${CONDA_PREFIX}/Library/bin/qt-dummy.conf" "${CONDA_PREFIX}/qt-dummy.conf"
+cp "${DUMMY_CONF}" "${CONDA_PREFIX}/qt-dummy.conf"
 echo "Activation complete"
 

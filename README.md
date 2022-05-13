@@ -93,7 +93,7 @@ Updating qt-dummy-feedstock
 ===========================
 
 If you would like to improve the qt-dummy recipe or build a new
-package version, please fork this repository and submit a PR. 
+package version, please fork this repository and submit a PR.
 
 In order to produce a uniquely identifiable distribution:
  * If the version of a package **is not** being increased, please add or increase

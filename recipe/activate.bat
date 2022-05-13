@@ -1,4 +1,4 @@
-rem header written by build.sh and bld.bat
+rem header written by bld.bat
 
 @echo off
 
@@ -38,15 +38,15 @@ set "MY_SELF=%~f0
 if not exist "%CONDA_MESO%" mkdir "%CONDA_MESO%"
 
 rem https://en.wikipedia.org/wiki/Environment_variable#Windows
-echo  Discovery
+rem  Discovery
 for /D %%G in ("%ProgramFiles%\Qt\Qt%PKG_VERSION%" "%SYSTEMDRIVE%\Qt\Qt%PKG_VERSION%") do set "QT_DIR=%%~G"
 
-echo  Qt dir = !QT_DIR!
-if not exist "!QT_DIR!" (
+rem  Qt dir = %QT_DIR%
+if not exist "%QT_DIR%" (
     for /f "tokens=1,2,3* delims=." %%G in ("%PKG_VERSION%") do set "PKG_MAJOR_MINOR=%%G.%%H"
     (
-     echo The target Qt version has not been installed. !QT_DIR!
-     echo see https://download.qt.io/new_archive/qt/!PKG_MAJOR_MINOR!/%PKG_VERSION%/qt-opensource-windows-x86-msvc2010-%PKG_VERSION%.exe
+     echo The target Qt version has not been installed. %QT_DIR%
+     echo see https://download.qt.io/new_archive/qt/%PKG_MAJOR_MINOR%/%PKG_VERSION%/qt-opensource-windows-x86-msvc2010-%PKG_VERSION%.exe
     )
     exit /B 0
 )
@@ -58,13 +58,22 @@ echo Writing revert-script to %DEACTIVATE_SCRIPT%
   echo set "QT_BASE_DIR=%QT_BASE_DIR%"
   echo set "QTDIR=%QTDIR%"
   echo set "QT_BIN_DIR=%QT_BIN_DIR%"
-  echo set "PATH=%PATH%"
 ) > "%DEACTIVATE_SCRIPT%"
 
 set "QT_BASE_DIR=%QT_DIR%"
 set "QTDIR=%QT_DIR%\msvc2010"
-set "QT_BIN_DIR=%QTDIR%\bin"
-set "PATH=%PATH%;%QT_BIN_DIR%"
+set "QT_BIN_SRC_DIR=%QTDIR%\bin"
+
+if not exist "%QT_BIN_DIR%" mkdir "%QT_BIN_DIR%"
+for /R "%QT_DIR%\bin" %%G in (*.exe) do (
+  for %%H in (%QT_BIN_DIR%\%%~nxG) do (
+      if not exist "%%H" (
+        mklink /H "%%H" "%%G" || echo failed linking "%%H" "%%G"
+      )
+      echo del "%%H" >> "%DEACTIVATE_SCRIPT%"
+  )
+)
+
 
 set "FORWARD_SLASHED_PREFIX=%CONDA_PREFIX:\=/%"
 if not exist "%CONDA_PREFIX%\Library" mkdir "%CONDA_PREFIX%\Library"
